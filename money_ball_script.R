@@ -1,6 +1,7 @@
 library(tidyverse)
 library(broom)
 library(Lahman)
+library(ggplot2)
 data(Teams)
 
 
@@ -63,4 +64,8 @@ players_ppa <- Batting %>% filter(yearID %in% 1999:2001) %>%
   filter(PA >= 300) %>%
   select(-G) %>%
   mutate(R_hat = predict(fit, newdata = .)) 
+
+## Plot the player-specific predicted runs
+qplot(R_hat, data = players_ppa, geom = "histogram", binwidth = 0.5, color = I("Black"))
+
 
